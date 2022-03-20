@@ -8,8 +8,18 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import {Link} from 'react-router-dom';
 
 function Sidebar() {
+
+  const enableActive = (event) => {
+    const list = document.querySelectorAll('.sidebarListItem');
+    list.forEach(item => {
+      item.classList.remove('active');
+    });
+    event.target.classList.add('active');
+  }
+
   return (
     <div className='sidebar'>
       <div className="sidebarWrapper">
@@ -18,25 +28,25 @@ function Sidebar() {
           <ul className="sidebarList">
             <li className="sidebarListItem active">
               <HomeIcon className='sidebarIcon'/>
-              Home
+              <Link to='/admin'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Trang chủ</Link>
             </li>
           </ul>
         </div>
 
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Car</h3>
+          <h3 className="sidebarTitle">Xe</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" onClick={enableActive}>
               <InventoryIcon className='sidebarIcon'/>
-              Manage
+              Quản lý xe
             </li>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" onClick={enableActive}>
               <DirectionsCarIcon className='sidebarIcon'/>
-              Car list
+              Danh sách xe
             </li>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" onClick={enableActive}>
               <EqualizerIcon className='sidebarIcon'/>
-              Car statistic
+              <Link to='/admin/cars/statistic'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Thống kê xe </Link> 
             </li>
           </ul>
         </div>
@@ -44,27 +54,27 @@ function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">User</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" onClick={enableActive}>
               <PersonIcon className='sidebarIcon'/>
-              User list
+              Danh sách user
             </li>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" onClick={enableActive}>
               <ManageAccountsIcon className='sidebarIcon'/>
-              User management
+              Quản lý user
             </li>
           </ul>
         </div>
 
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Bills</h3>
+          <h3 className="sidebarTitle">Hóa đơn</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" onClick={enableActive}>
               <AddBoxIcon className='sidebarIcon'/>
-              Bill management
+              Quản lý hóa đơn
             </li>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" onClick={enableActive}>
               <DescriptionIcon className='sidebarIcon'/>
-              Bill statistic
+              Thống kê hóa đơn
             </li>
           </ul>
         </div>

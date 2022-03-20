@@ -8,70 +8,86 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils  from '@date-io/date-fns';
+import Button from '@mui/material/Button';
+
 import {
     MuiPickersUtilsProvider,
-    KeyBoardTimePicker,
     KeyboardDatePicker
 } from '@material-ui/pickers';
+import { Link } from 'react-router-dom';
+
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: 'stt', label: 'STT', minWidth: 170 },
+    { id: 'carName', label: 'Tên xe', minWidth: 170 },
+    { id: 'carId', label: 'ID xe', minWidth: 170 },
     {
-      id: 'population',
-      label: 'Population',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
+      id: 'doanhThu',
+      label: 'Doanh thu',
+      minWidth: 170
     },
-    {
-      id: 'size',
-      label: 'Size\u00a0(km\u00b2)',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-      id: 'density',
-      label: 'Density',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toFixed(2),
-    },
+    { id: 'action', label: 'Action', minWidth: 170 }
   ];
   
-  function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
+  function createData(stt, carName, carId, doanhThu) {
+    return {stt, carName, carId, doanhThu};
   }
   
   const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
+      createData(1, 'Xe 1', 1, '100'),
+      createData(2, 'Xe 1', 2, '100'),
   ];
+
+  
 
 function CarStatistic() {
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [selectedStartDate, setSelectedStartDate] = React.useState(new Date());
-    const [selectedEndDate, setSelectedEndDate] = React.useState(new Date());
+    let [page, setPage] = React.useState(0);
+    let [rowsPerPage, setRowsPerPage] = React.useState(10);
+    let [selectedStartDate, setSelectedStartDate] = React.useState(new Date());
+    let [selectedEndDate, setSelectedEndDate] = React.useState(new Date());
+    let search = true;
+
+    const formatStartDate = () => {
+        const startDate = selectedStartDate.getDate();
+        const startYear = selectedStartDate.getFullYear();
+        const startMonth = selectedStartDate.getMonth() + 1 < 10 ? '0' + (selectedStartDate.getMonth() + 1) : selectedStartDate.getMonth() + 1;
+        return `${startYear}-${startMonth}-${startDate}`;
+    }
+
+    const formatEndDate = () => {
+        const startDate = selectedEndDate.getDate();
+        const startYear = selectedEndDate.getFullYear();
+        const startMonth = selectedEndDate.getMonth() + 1 < 10 ? '0' + (selectedEndDate.getMonth() + 1) : selectedEndDate.getMonth() + 1;
+        return `${startYear}-${startMonth}-${startDate}`;
+    }
+
+    // React.useEffect(() => {
+    //     if (search){
+    //         let startY = selectedStartDate.getFullYear();
+    //         let startM = selectedStartDate.getMonth() + 1 < 10 ? '0' + (selectedStartDate.getMonth() + 1) : selectedStartDate.getMonth() + 1;
+    //         let startD = selectedStartDate.getDate();
+    //         let endY = selectedEndDate.getFullYear();
+    //         let endM = selectedEndDate.getMonth() + 1 < 10 ? '0' + (selectedEndDate.getMonth() + 1) : selectedEndDate.getMonth() + 1;
+    //         let endD = selectedEndDate.getDate();
+    //         let startDate = `${startY}-${startM}-${startD}`;
+    //         let endDate = `${endY}-${endM}-${endD}`;
+    //         console.log(startDate);
+    //         fetch(`http://localhost:8080/api/v1/cars/statistic?startDate=${startDate}&endDate=${endDate}`,{
+    //             crossDomain: true,
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         })
+    //         .then(res => {
+    //             console.log(res);
+    //         })
+    //         search = false;
+    //     }
+    // });
 
     const handleStartDateChange = (date) => {
         setSelectedStartDate(date);
@@ -90,31 +106,59 @@ function CarStatistic() {
       setPage(0);
     };  
 
+    const handleSearching = (event) => {
+        search = true;
+    }
+
     return (
         <div className='carStatistic'>
             <div className="datePicker">
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify='space-around'>
-                        <KeyboardDatePicker
-                            disableToolbar
-                            variant='inline'
-                            format='YYYY/MM/DD'
-                            margin='normal'
-                            id='startDatePicker'
-                            label='Start Date'
-                            value={selectedStartDate}
-                            onChange={handleStartDateChange}
-                            KeyboardButtonProps={{
-                                'arial-label': 'change date',
-                            }}
-                        />  
-                    </Grid>
-                </MuiPickersUtilsProvider>
+                <div className="startDatePicker">
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justify='space-around'>
+                            <KeyboardDatePicker
+                                disableToolbar
+                                variant='inline'
+                                format='yyyy-MM-dd'
+                                margin='normal'
+                                id='startDatePicker'
+                                label='Start Date'
+                                value={selectedStartDate}
+                                onChange={handleStartDateChange}
+                                KeyboardButtonProps={{
+                                    'arial-label': 'change date',
+                                }}
+                            />  
+                        </Grid>
+                    </MuiPickersUtilsProvider>
+                </div>
+                <div className="endDatePicker">
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justify='space-around'>
+                            <KeyboardDatePicker
+                                disableToolbar
+                                variant='inline'
+                                format='yyyy-MM-dd'
+                                margin='normal'
+                                id='endDatePicker'
+                                label='End Date'
+                                value={selectedEndDate}
+                                onChange={handleEndDateChange}
+                                KeyboardButtonProps={{
+                                    'arial-label': 'change date',
+                                }}
+                            />  
+                        </Grid>
+                    </MuiPickersUtilsProvider>
+                </div>
+                <div className="btnSearch">
+                    <Button onClick={handleSearching}>Search</Button>
+                </div>
             </div>
             <div className="table">
                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <TableContainer sx={{ maxHeight: 600 }}>
-                        <Table stickyHeader aria-label="sticky table">
+                        <Table stickyHeader aria-label="sticky table" >
                         <TableHead>
                             <TableRow>
                             {columns.map((column) => (
@@ -133,18 +177,28 @@ function CarStatistic() {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                    {columns.map((column) => {
-                                    const value = row[column.id];
-                                    return (
-                                        <TableCell key={column.id} align={column.align}>
-                                        {column.format && typeof value === 'number'
-                                            ? column.format(value)
-                                            : value}
-                                        </TableCell>
-                                    );
-                                    })}
-                                </TableRow>
+                                
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
+                                        {columns.map((column) => {
+                                            if (column.id == 'action'){
+                                                return (
+                                                    <TableCell>
+                                                        {<Link to={`statistic/bills/car_id=${row.carId}&start_date=${formatStartDate()}&end_date=${formatEndDate()}`}>Xem danh sách hóa đơn</Link>}
+                                                    </TableCell>
+                                                )
+                                            } else {
+                                                const value = row[column.id];
+                                                return (    
+                                                        <TableCell key={column.id} align={column.align}>
+                                                        {column.format && typeof value === 'number'
+                                                            ? column.format(value)
+                                                            : value}
+                                                        </TableCell>                                      
+                                                );
+                                            }
+                                        })}
+                                    </TableRow>
+                                
                                 );
                             })}
                         </TableBody>

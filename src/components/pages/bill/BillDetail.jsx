@@ -5,75 +5,97 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import queryString from 'query-string';
+import {useParams, useLocation} from 'react-router-dom';
 
-const dataExample = {
-    "id": 2,
-    "createAt": "2022-03-18 11:03:06",
-    "paymentStatus": "đã thanh toán",
-    "confirmStatus": "chưa duyệt",
-    "paymentMethod": "cash",
-    "totalPrice": 2000000.0,
-    "startDate": "2022-03-18",
-    "endDate": "2022-03-19",
-    "employee": null,
-    "car": {
-        "id": 1,
-        "name": "VINFAST LUX  A2.0",
-        "color": "Brahminy White",
-        "licensePlate": "30A-686.86",
-        "seatNumber": 4,
-        "image": "https://shop.vinfastauto.com/on/demandware.static/-/Sites-app_vinfast_vn-Library/default/dw218d05cc/images/Lux-A/hinh-anh-gia-VinFast-Lux-a2.0-price-mau-trang-brahminy-white.png"
-    }
+function emptyBody(){
+    return (
+        <div></div>
+    )
+}
+
+function formatPrice(price){
+    return price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+}
+
+function Body(data){
+    return (
+        
+            <Card sx={{ maxWidth: 600 }}>
+                <CardActionArea>
+                    <CardMedia
+                    component="img"
+                    height="180"
+                    image={data.car.image}
+                    alt="green iguana"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Hóa đơn thuê xe {data.car.name} - {data.car.licensePlate}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Ngày tạo đơn: {data.startDate}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Trạng thái xác nhận: {data.confirmStatus}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Trạng thái thanh toán: {data.paymentStatus}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Ngày mượn xe: {data.startDate}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Ngày trả xe: {data.endDate}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Thông tin xe:
+                            <Typography variant="inherit" color="InfoText">
+                                số chỗ ngồi: {data.car.seatNumber}
+                            </Typography>
+                            <Typography align='' variant="inherit" color="InfoText">
+                                màu xe: {data.car.color}
+                            </Typography>
+                        </Typography>
+                        <Typography variant="body1" color="red">
+                            Tổng số tiền: {formatPrice(data.totalPrice)}
+                        </Typography>
+                    
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+       
+    )
 }
 
 function BillDetail() {
-  return (
-    <div className='billDetail'>
-        <Card sx={{ maxWidth: 600 }}>
-            <CardActionArea>
-                <CardMedia
-                component="img"
-                height="180"
-                image={dataExample.car.image}
-                alt="green iguana"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Hóa đơn thuê xe {dataExample.car.name} - {dataExample.car.licensePlate}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Ngày tạo đơn: {dataExample.startDate}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Trạng thái xác nhận: {dataExample.confirmStatus}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Trạng thái thanh toán: {dataExample.paymentStatus}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Ngày mượn xe: {dataExample.startDate}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Ngày trả xe: {dataExample.endDate}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Thông tin xe:
-                        <Typography variant="inherit" color="InfoText">
-                            số chỗ ngồi: {dataExample.car.seatNumber}
-                        </Typography>
-                        <Typography align='' variant="inherit" color="InfoText">
-                            màu xe: {dataExample.car.color}
-                        </Typography>
-                    </Typography>
-                    <Typography variant="body1" color="red">
-                        Tổng số tiền: {dataExample.totalPrice} VND
-                    </Typography>
-                
-                </CardContent>
-            </CardActionArea>
-        </Card>
-    </div>
-  )
+
+    const [data, setData] = React.useState([]);
+    const [fetched, setFetched] = React.useState(false);
+    const {search} = useLocation();
+    const {bill_id} = queryString.parse(search);
+    
+    React.useEffect(() => {
+        console.log(bill_id);
+        fetch(`http://localhost:8080/api/v1/bills/bill_id?id=${bill_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            setData(result);
+            setFetched(true);
+        });
+    }, []);
+
+  
+
+    return (<div className='billDetail'>
+        {(fetched === true) ? Body(data) : emptyBody()}
+    </div>);
+    
 }
 
 export default BillDetail

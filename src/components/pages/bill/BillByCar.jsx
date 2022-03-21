@@ -9,31 +9,43 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const columns = [
     { id: 'stt', label: 'STT', minWidth: 170 },
     { id: 'billId', label: 'Mã hóa đơn', minWidth: 170 },
     { id: 'carId', label: 'ID xe', minWidth: 170 },
-    {
-      id: 'cretedAt',
-      label: 'Tạo lúc',
-      minWidth: 170
-    },
+    {id: 'createdAt', label: 'Tạo lúc', minWidth: 170},
     { id: 'action', label: 'Action', minWidth: 170 }
   ];
   
-  function createData(stt, billId, carId, cretedAt) {
-    return {stt, billId, carId, cretedAt};
-  }
-  
-  const rows = [
-      createData(1, 1, 1, '2020-01-01'),
-      createData(2, 2, 1, '2020-01-01'),
-  ];
+function createData(stt, billId, carId, createdAt) {
+    return {stt, billId, carId, createdAt};
+}
 
+
+  
 function BillByCar() {
     let [page, setPage] = React.useState(0);
     let [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rows, setRows] = React.useState([]);
+
+    const params = useParams().car_id.split(/[=&\s]/);
+    const [ci, carId, sd, startDate, ed, endDate] = [...params];
+
+    React.useEffect(() => {
+        fetch(`http://localhost:8080/api/v1/bills/car?carId=${carId}&startDate=${startDate}&endDate=${endDate}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            setRows(data.map((item, index) => createData(index + 1, item.id, item.carId, item.createAt)));
+        })
+    }, [])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

@@ -33,15 +33,30 @@ function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-          username: data.get('username'),
-          password: data.get('password'),
+
+        let username = data.get('username');
+        let password = data.get('password');
+
+        console.log(JSON.stringify({
+            username,
+            password
+        }));
+
+        fetch(`http://localhost:8080/api/v1/admins/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+                username,
+                password
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => {
+            if(res.status == 200){
+                history.push("/admin");
+            }
         });
-        if (data.get('username') == 'iahk151020' && data.get('password') == 'Khai15102@'){
-            history.push('/admin');
-        } else {
-            setOpen(true);
-        }
     };
 
     return (

@@ -17,7 +17,7 @@ function Sidebar() {
     list.forEach(item => {
       item.classList.remove('active');
     });
-    event.target.classList.add('active');
+    event.target.parentNode.classList.add('active');
   }
 
   return (
@@ -28,7 +28,7 @@ function Sidebar() {
           <ul className="sidebarList">
             <li className="sidebarListItem active">
               <HomeIcon className='sidebarIcon'/>
-              <Link to='/admin'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Trang chủ</Link>
+              <Link to='/admin' onClick={enableActive}  style={{  color: 'inherit', textDecoration: 'inherit' }}>Trang chủ</Link>
             </li>
           </ul>
         </div>
@@ -46,7 +46,7 @@ function Sidebar() {
             </li>
             <li className="sidebarListItem" onClick={enableActive}>
               <EqualizerIcon className='sidebarIcon'/>
-              <Link to='/admin/cars/statistic'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Thống kê xe </Link> 
+              <Link onClick={enableActive} to='/admin/cars/statistic'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Thống kê xe </Link> 
             </li>
           </ul>
         </div>

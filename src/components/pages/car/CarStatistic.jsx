@@ -35,11 +35,7 @@ const columns = [
     return {stt, carName, carId, doanhThu};
   }
   
-  const rows = [
-      createData(1, 'Xe 1', 1, '100'),
-      createData(2, 'Xe 1', 2, '100'),
-  ];
-
+ 
   
 
 function CarStatistic() {
@@ -48,46 +44,41 @@ function CarStatistic() {
     let [rowsPerPage, setRowsPerPage] = React.useState(10);
     let [selectedStartDate, setSelectedStartDate] = React.useState(new Date());
     let [selectedEndDate, setSelectedEndDate] = React.useState(new Date());
-    let search = true;
+    const [search, setSearch] = React.useState(false);
+    const [rows, setRows] = React.useState([]);
+  
+    React.useEffect(async () => {
+        if (search){
+            let startDate = formatStartDate();
+            let endDate = formatEndDate();
+            fetch(`http://localhost:8080/api/v1/cars/statistic?startDate=${startDate}&endDate=${endDate}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => res.json())
+            .then(resJson => {
+                let newData = resJson.map((item, id) => createData(id + 1, item.carName, item.carId, item.doanhthu));
+                setRows(newData);
+            });
+            setSearch(false);
+        }
+    }, [search]);
 
     const formatStartDate = () => {
-        const startDate = selectedStartDate.getDate();
+        const startDate = selectedStartDate.getDate() < 10 ? '0' + selectedStartDate.getDate() : selectedStartDate.getDate();
         const startYear = selectedStartDate.getFullYear();
         const startMonth = selectedStartDate.getMonth() + 1 < 10 ? '0' + (selectedStartDate.getMonth() + 1) : selectedStartDate.getMonth() + 1;
         return `${startYear}-${startMonth}-${startDate}`;
     }
 
     const formatEndDate = () => {
-        const startDate = selectedEndDate.getDate();
+        const startDate = selectedEndDate.getDate() < 10 ? '0' + selectedEndDate.getDate() : selectedEndDate.getDate();
         const startYear = selectedEndDate.getFullYear();
         const startMonth = selectedEndDate.getMonth() + 1 < 10 ? '0' + (selectedEndDate.getMonth() + 1) : selectedEndDate.getMonth() + 1;
         return `${startYear}-${startMonth}-${startDate}`;
     }
-
-    // React.useEffect(() => {
-    //     if (search){
-    //         let startY = selectedStartDate.getFullYear();
-    //         let startM = selectedStartDate.getMonth() + 1 < 10 ? '0' + (selectedStartDate.getMonth() + 1) : selectedStartDate.getMonth() + 1;
-    //         let startD = selectedStartDate.getDate();
-    //         let endY = selectedEndDate.getFullYear();
-    //         let endM = selectedEndDate.getMonth() + 1 < 10 ? '0' + (selectedEndDate.getMonth() + 1) : selectedEndDate.getMonth() + 1;
-    //         let endD = selectedEndDate.getDate();
-    //         let startDate = `${startY}-${startM}-${startD}`;
-    //         let endDate = `${endY}-${endM}-${endD}`;
-    //         console.log(startDate);
-    //         fetch(`http://localhost:8080/api/v1/cars/statistic?startDate=${startDate}&endDate=${endDate}`,{
-    //             crossDomain: true,
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             }
-    //         })
-    //         .then(res => {
-    //             console.log(res);
-    //         })
-    //         search = false;
-    //     }
-    // });
 
     const handleStartDateChange = (date) => {
         setSelectedStartDate(date);
@@ -107,9 +98,9 @@ function CarStatistic() {
     };  
 
     const handleSearching = (event) => {
-        search = true;
+        setSearch(true);
     }
-
+        
     return (
         <div className='carStatistic'>
             <div className="datePicker">

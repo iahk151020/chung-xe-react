@@ -4,7 +4,7 @@ import Home from './components/pages/Home';
 import CarStatistic from './components/pages/car/CarStatistic';
 import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
-import "./app.css";
+// import "./app.css";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +12,15 @@ import {
   Link
 } from "react-router-dom";
 import Login from "./components/login/Login";
+
+import {UserHome} from "./pages/Home";
+import UserLogin from './pages/Login';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { ChooseCar } from './pages/ChooseCar';
+import CarDetail from './pages/CarDetail';
+import Protected from './components/Protected';
+import Success from './pages/Success';
+
 
 function App() {
   return (
@@ -48,6 +57,19 @@ function App() {
               <BillDetail/>
             </div>
           </Route>
+
+
+          <Route exact path="/" component={UserHome} /> 
+            <Route path="/login" component={UserLogin} />  
+            <Route path="/book">
+              <Protected Cmp={ChooseCar}/>
+            </Route>
+            <Route path="/detail/:id">
+              <Protected Cmp={CarDetail}/>
+            </Route>
+            <Route path="/Success/">
+              <Protected Cmp={Success}/>
+            </Route>
         </Switch>
     </Router>
   );

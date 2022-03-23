@@ -19,10 +19,9 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 140 }
   ];
   
-function createData(stt, billId, carId,  customerName, createdAt) {
-    // console.log(employeeName);
-    // console.log(customerName);
-    return {stt, billId, carId, customerName, createdAt};
+
+function createData(stt, billId, carId, customerName, createdAt) {
+    return {stt, billId, carId,  customerName, createdAt};
 }
 
 function  BillList() {
@@ -40,7 +39,6 @@ function  BillList() {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             setRows(data.map((item, index) => createData(index + 1, item.id, item.car.id, item.customer.fullName, item.createAt)));
         });
     }, []);

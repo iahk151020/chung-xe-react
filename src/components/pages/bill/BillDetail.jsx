@@ -27,7 +27,7 @@ function Body(data){
                     component="img"
                     height="180"
                     image={data.car.image}
-                    alt="green iguana"
+                    alt="anh xe"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
@@ -97,7 +97,7 @@ function BillDetail() {
 
   
 
-    return (<div className='billDetail'>
+    return (<div className='billDetail1'>
         {(fetched === true) ? Body(data) : emptyBody()}
     </div>);
     

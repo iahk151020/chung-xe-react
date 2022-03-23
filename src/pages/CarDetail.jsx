@@ -28,6 +28,7 @@ function CarDetail (props) {
 
     let day = eDate.getDate()-sDate.getDate();
     let price = data.price;
+    console.log(data.price);
     let carId = props.match.params.id;
     let customerId = user.id;
 
@@ -121,7 +122,7 @@ function CarDetail (props) {
                             <h2>CHẤP NHẬN THANH TOÁN</h2>
                             <div className="item-list">
                                 <div className="item-list-col">
-                                    <p><img src='https://www.seekpng.com/png/detail/17-178542_insurance-sales-openings-money-icon-black-png.png' style={{width : "50px", margin:"10px"}}/>Thanh toán bằng tiền mặt</p>
+                                    <p><img src='https://static.thenounproject.com/png/2247068-200.png' style={{width : "50px", margin:"10px"}}/>Thanh toán bằng tiền mặt</p>
                                     <p><img src='https://www.pikpng.com/pngl/b/71-718009_bank-free-download-png-icon-bank-logo-png.png' style={{width : "30px", margin:"10px 10px 20px"}}/>Thanh toán qua chuyển khoản ngân hàng</p>
                                 </div>
                             </div>
@@ -151,9 +152,9 @@ function CarDetail (props) {
                     </div>                    
                     <div className="rent-price">
                         <h2>Chi tiết giá</h2>
-                        <p>Đơn giá: {price} </p>
+                        <p>Đơn giá: {price} đ</p>
                         <p>Thời gian thuê : {day} ngày</p>
-                        <p>Tổng tiền: {totalPrice} đ </p>
+                        <p>Tổng tiền: {totalPrice.toLocaleString()} đ </p>
                     </div>
                     
                     <div className="button">

@@ -120,8 +120,7 @@ export const CarList = () =>
                     <ul className="list-group shadow">
                         {
                             data.map((item) => 
-
-                        
+                         
                         <li className="list-group-item">
                     
                             <div className="media align-items-lg-center flex-column flex-lg-row p-3">
@@ -137,7 +136,8 @@ export const CarList = () =>
                                         <div className='col'> <img src={item.image} alt="Generic placeholder image" className="ml-lg-5 order-1 order-lg-2"/></div>
                                     </div>
                                     <div className="d-flex align-items-center justify-content-between mt-1">
-                                        <h6 className="font-weight-bold my-2 item-price">{item.price}₫/ngày</h6>
+
+                                        <h6 className="font-weight-bold my-2 item-price">{item.price.toLocaleString()}₫/ngày</h6>
                                     </div>
                                     <a className="list-btn" href={"/detail/"+item.id}>Chi tiết</a>
                                 </div>

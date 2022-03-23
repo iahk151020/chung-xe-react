@@ -21,7 +21,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 const theme = createTheme();
 
-function Login() {
+function AdminLogin() {
 
     const [open, setOpen] = React.useState(false);
     const history = useHistory();
@@ -151,4 +151,4 @@ function Login() {
     )
 }
 
-export default Login
+export default AdminLogin

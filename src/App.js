@@ -5,7 +5,7 @@ import CarStatistic from './components/pages/car/CarStatistic';
 import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
 import "./App.css";
-import Login from "./components/login/Login";
+import AdminLogin from "./components/login/AdminLogin";
 import BillList from "./components/pages/bill/BillList";
 import {
   BrowserRouter as Router,
@@ -30,33 +30,47 @@ function App() {
       
       
         <Switch>
-          <Route exact path="/admin/login"><Login/></Route>
+          <Route exact path="/admin/login"><AdminLogin/></Route>
           <Route exact path="/admin">
             <Topbar/>
-            <div className="container1">
+            <div className="container">
               <Sidebar/>
               <Home/>
             </div>
           </Route>
           <Route exact path="/admin/cars/statistic">
             <Topbar/>
-            <div className="container1">
+            <div className="container">
               <Sidebar/>
               <CarStatistic/>
             </div>
           </Route>
           <Route exact path="/admin/cars/statistic/bills/:car_id?/:start_date?/:end_date?">
             <Topbar/>
-            <div className="container1">
+            <div className="container">
               <Sidebar/>
               <BillByCar/>
             </div>
           </Route>
           <Route exact path="/admin/bills/bill_detail/:id">
             <Topbar/>
-            <div className="container1">
+            <div className="container">
               <Sidebar/>
               <BillDetail/>
+            </div>
+          </Route>
+          <Route exact path="/admin/bills/confirm">
+            <Topbar/>
+            <div className="container">
+              <Sidebar/>
+              <BillList/>
+            </div>
+          </Route>
+          <Route exact path="/admin/bills/confirm/:id">
+            <Topbar/>
+            <div className="container">
+              <Sidebar/>
+              <ConfirmBill/>
             </div>
           </Route>
 
@@ -74,20 +88,6 @@ function App() {
               <Protected Cmp={Success}/>
             </Route>
 
-          <Route exact path="/admin/bills/confirm">
-            <Topbar/>
-            <div className="container">
-              <Sidebar/>
-              <BillList/>
-            </div>
-          </Route>
-          <Route exact path="/admin/bills/confirm/:id">
-            <Topbar/>
-            <div className="container">
-              <Sidebar/>
-              <ConfirmBill/>
-            </div>
-          </Route>
           
 
         </Switch>

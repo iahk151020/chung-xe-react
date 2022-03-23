@@ -1,7 +1,5 @@
 import React,{useState,useEffect} from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { resolveDirective } from 'vue';
-
 import "../components/Login.css";
 
 function UserLogin() {

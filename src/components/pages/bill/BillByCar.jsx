@@ -12,15 +12,16 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 const columns = [
-    { id: 'stt', label: 'STT', minWidth: 170 },
-    { id: 'billId', label: 'Mã hóa đơn', minWidth: 170 },
-    { id: 'carId', label: 'ID xe', minWidth: 170 },
-    {id: 'createdAt', label: 'Tạo lúc', minWidth: 170},
-    { id: 'action', label: 'Action', minWidth: 170 }
+    { id: 'stt', label: 'STT', minWidth: 160 },
+    { id: 'billId', label: 'Mã hóa đơn', minWidth: 160 },
+    { id: 'carId', label: 'ID xe', minWidth: 160 },
+    { id: 'carName', label: 'Tên xe', minWidth: 160 },
+    {id: 'createdAt', label: 'Tạo lúc', minWidth: 160},
+    { id: 'action', label: 'Action', minWidth: 160 }
   ];
   
-function createData(stt, billId, carId, createdAt) {
-    return {stt, billId, carId, createdAt};
+function createData(stt, billId, carId, carName, createdAt) {
+    return {stt, billId, carId, carName,  createdAt};
 }
 
 
@@ -29,6 +30,7 @@ function BillByCar() {
     let [page, setPage] = React.useState(0);
     let [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rows, setRows] = React.useState([]);
+    const [carNameTitle, setCarNameTitle] = React.useState("");
 
     const params = useParams().car_id.split(/[=&\s]/);
     const [ci, carId, sd, startDate, ed, endDate] = [...params];
@@ -42,9 +44,9 @@ function BillByCar() {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
-            setRows(data.map((item, index) => createData(index + 1, item.id, item.carId, item.createAt)));
-        })
+            setCarNameTitle(data[0].carName);
+            setRows(data.map((item, index) => createData(index + 1, item.id, item.carId, item.carName, item.createAt)));
+        });
     }, [])
 
     const handleChangePage = (event, newPage) => {
@@ -58,6 +60,7 @@ function BillByCar() {
    
     return (    
     <div className='billByCar'>
+        <div className="title">Danh sách hóa đơn của xe {carNameTitle} đơn từ ngày {startDate} đến ngày {endDate}</div>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 600 }}>
                 <Table stickyHeader aria-label="sticky table" >
@@ -85,7 +88,7 @@ function BillByCar() {
                                     if (column.id == 'action'){
                                         return (
                                             <TableCell>
-                                                {<Link to={`/admin/bills?bill_id=${row.billId}`} >Xem chi tiết hóa đơn</Link>}
+                                                {<Link to={`/admin/bills/bill_detail/${row.billId}`} >Xem chi tiết hóa đơn</Link>}
                                             </TableCell>
                                         )
                                     } else {

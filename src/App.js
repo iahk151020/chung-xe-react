@@ -5,13 +5,15 @@ import CarStatistic from './components/pages/car/CarStatistic';
 import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
 import "./App.css";
+import Login from "./components/login/Login";
+import BillList from "./components/pages/bill/BillList";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import Login from "./components/login/Login";
+import ConfirmBill from "./components/pages/bill/ConfirmBill";
 
 import {UserHome} from "./pages/Home";
 import UserLogin from './pages/Login';
@@ -38,25 +40,26 @@ function App() {
           </Route>
           <Route exact path="/admin/cars/statistic">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <CarStatistic/>
             </div>
           </Route>
           <Route exact path="/admin/cars/statistic/bills/:car_id?/:start_date?/:end_date?">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <BillByCar/>
             </div>
           </Route>
-          <Route exact path="/admin/bills/:bill_id?">
+          <Route exact path="/admin/bills/bill_detail/:id">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <BillDetail/>
             </div>
           </Route>
+
 
 
           <Route exact path="/" component={UserHome} /> 
@@ -70,6 +73,23 @@ function App() {
             <Route path="/Success/">
               <Protected Cmp={Success}/>
             </Route>
+
+          <Route exact path="/admin/bills/confirm">
+            <Topbar/>
+            <div className="container">
+              <Sidebar/>
+              <BillList/>
+            </div>
+          </Route>
+          <Route exact path="/admin/bills/confirm/:id">
+            <Topbar/>
+            <div className="container">
+              <Sidebar/>
+              <ConfirmBill/>
+            </div>
+          </Route>
+          
+
         </Switch>
     </Router>
   );

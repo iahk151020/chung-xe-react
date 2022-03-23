@@ -1,12 +1,11 @@
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
-import Home from './components/pages/Home';
 import CarStatistic from './components/pages/car/CarStatistic';
 import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
 import "./App.css";
 import AdminLogin from "./components/login/AdminLogin";
-import BillList from "./components/pages/bill/BillList";
+import BillList from "./components/pages/bill/BillList"; 
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +21,7 @@ import { ChooseCar } from './pages/ChooseCar';
 import CarDetail from './pages/CarDetail';
 import Protected from './components/Protected';
 import Success from './pages/Success';
+import AdminHome from "./components/pages/AdminHome";
 
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
             <Topbar/>
             <div className="container">
               <Sidebar/>
-              <Home/>
+              <AdminHome/>
             </div>
           </Route>
           <Route exact path="/admin/cars/statistic">

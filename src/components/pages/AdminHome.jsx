@@ -1,9 +1,9 @@
 import React from 'react'
 import Chart from '../chart/Chart';
 import FeaturedInfo from '../featuredInfo/FeaturedInfo';
-import './home.css';
+import './adminHome.css';
 
-function Home() {
+function AdminHome() {
   return (
     <div className='home'>
         <FeaturedInfo/>
@@ -12,4 +12,4 @@ function Home() {
   )
 }
 
-export default Home
+export default AdminHome

@@ -1,9 +1,7 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 
 import '../components/Success.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { withRouter } from 'react-router-dom';
-
 
 function Success () {
 

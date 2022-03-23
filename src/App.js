@@ -6,7 +6,7 @@ import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
 import Login from "./components/login/Login";
 import BillList from "./components/pages/bill/BillList";
-import "./app.css";
+import "./App.css";
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,8 +18,6 @@ import ConfirmBill from "./components/pages/bill/ConfirmBill";
 function App() {
   return (
     <Router className="App">
-      
-      
         <Switch>
           <Route exact path="/admin/login"><Login/></Route>
           <Route exact path="/admin">

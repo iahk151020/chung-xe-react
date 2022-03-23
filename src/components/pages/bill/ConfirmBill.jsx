@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import {useParams} from 'react-router-dom';
+import {Link, useParams, useHistory} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -26,7 +26,8 @@ function ConfirmBill() {
     const [open, setOpen] = React.useState(false);
     const [alert, setAlert] = React.useState("Xác nhận");
     const [status, setStatus] = React.useState("");
-
+    
+    const history = useHistory();
 
     const handleClickConfirm = () => {
         setAlert("Xác nhận đơn thành công");
@@ -36,12 +37,13 @@ function ConfirmBill() {
 
     const handleClickCancel = () => {
         setAlert("Hủy đơn thành công");
-        setStatus("Cancel");
+        setStatus("Cancel");   
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
+        history.push('/admin/bills/confirm');
     };
 
     const bill_id = useParams().id;
@@ -154,12 +156,13 @@ function ConfirmBill() {
                 </div>
                 <br/>
                 <div className="buttons">
-                    <Button onClick={handleClickConfirm} className="button" variant="contained" color="success">
-                        Xác nhận
-                    </Button>
-                    <Button onClick={handleClickCancel} className="button" variant="contained" color="error">
-                        Hủy đơn
-                    </Button>
+                    
+                        <Button onClick={handleClickConfirm}  className="button" variant="contained" color="success">
+                            Xác nhận
+                        </Button>
+                        <Button onClick={handleClickCancel} className="button" variant="contained" color="error">
+                            Hủy đơn
+                        </Button>
                 </div>
             </div>
         

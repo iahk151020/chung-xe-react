@@ -4,7 +4,7 @@ import Home from './components/pages/Home';
 import CarStatistic from './components/pages/car/CarStatistic';
 import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
-// import "./app.css";
+import "./App.css";
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/admin/login"><Login/></Route>
           <Route exact path="/admin">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <Home/>
             </div>

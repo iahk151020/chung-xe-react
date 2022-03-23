@@ -125,7 +125,7 @@ export const CarList = () =>
                     
                             <div className="media align-items-lg-center flex-column flex-lg-row p-3">
                                 <div className="media-body order-2 order-lg-1">
-                                    <a className="mt-0 font-weight-bold mb-2" href="#">{item.name}</a>
+                                    <h3 className="mt-0 font-weight-bold mb-2" href="#">{item.name}</h3>
                                     <div className="row">
                                         <div className="col"><img src="https://icons.iconarchive.com/icons/icons8/android/512/Editing-Bg-Color-icon.png" style={{width : "20px", margin:"10px"}}/>Màu {item.color}</div>
                                         <div className="col"><img src="https://cdn-icons-png.flaticon.com/512/290/290081.png" style={{width : "30px", margin:"10px"}}/>Biển {item.licensePlate}</div>

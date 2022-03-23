@@ -11,7 +11,7 @@ export const ChooseCar = () => {
     return(
     <>
         <Heading />
-        <Slide/>
+        {/* <Slide/> */}
         <br/>
         <div className="d-flex justify-content-center">
             <div className='container'>

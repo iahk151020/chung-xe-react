@@ -14,16 +14,15 @@ const columns = [
     { id: 'stt', label: 'STT', minWidth: 140 },
     { id: 'billId', label: 'Mã hóa đơn', minWidth: 140 },
     { id: 'carId', label: 'ID xe', minWidth: 140 },
-    { id: 'employeeName', label: 'Người tạo đơn', minWidth: 140 },
     { id: 'customerName', label: 'Khách hàng', minWidth: 140 },
     {id: 'createdAt', label: 'Tạo lúc', minWidth: 140},
     { id: 'action', label: 'Action', minWidth: 140 }
   ];
   
-function createData(stt, billId, carId, employeeName, customerName, createdAt) {
-    console.log(employeeName);
-    console.log(customerName);
-    return {stt, billId, carId, employeeName, customerName, createdAt};
+function createData(stt, billId, carId,  customerName, createdAt) {
+    // console.log(employeeName);
+    // console.log(customerName);
+    return {stt, billId, carId, customerName, createdAt};
 }
 
 function  BillList() {
@@ -41,7 +40,8 @@ function  BillList() {
         })
         .then(res => res.json())
         .then(data => {
-            setRows(data.map((item, index) => createData(index + 1, item.id, item.car.id, item.employee.fullName, item.customer.fullName, item.createAt)));
+            console.log(data);
+            setRows(data.map((item, index) => createData(index + 1, item.id, item.car.id, item.customer.fullName, item.createAt)));
         });
     }, []);
 

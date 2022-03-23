@@ -4,6 +4,8 @@ import Home from './components/pages/Home';
 import CarStatistic from './components/pages/car/CarStatistic';
 import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
+import Login from "./components/login/Login";
+import BillList from "./components/pages/bill/BillList";
 import "./app.css";
 import {
   BrowserRouter as Router,
@@ -11,7 +13,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Login from "./components/login/Login";
+import ConfirmBill from "./components/pages/bill/ConfirmBill";
 
 function App() {
   return (
@@ -41,13 +43,28 @@ function App() {
               <BillByCar/>
             </div>
           </Route>
-          <Route exact path="/admin/bills/:bill_id?">
+          <Route exact path="/admin/bills/bill_detail/:id">
             <Topbar/>
             <div className="container">
               <Sidebar/>
               <BillDetail/>
             </div>
           </Route>
+          <Route exact path="/admin/bills/confirm">
+            <Topbar/>
+            <div className="container">
+              <Sidebar/>
+              <BillList/>
+            </div>
+          </Route>
+          <Route exact path="/admin/bills/confirm/:id">
+            <Topbar/>
+            <div className="container">
+              <Sidebar/>
+              <ConfirmBill/>
+            </div>
+          </Route>
+          
         </Switch>
     </Router>
   );

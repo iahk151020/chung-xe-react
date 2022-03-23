@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import queryString from 'query-string';
-import {useParams, useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 function emptyBody(){
     return (
@@ -49,18 +49,23 @@ function Body(data){
                             Ngày trả xe: {data.endDate}
                         </Typography>
                         <Typography variant="body1" color="text.secondary">
-                            Thông tin xe:
-                            <Typography variant="inherit" color="InfoText">
-                                số chỗ ngồi: {data.car.seatNumber}
-                            </Typography>
-                            <Typography align='' variant="inherit" color="InfoText">
-                                màu xe: {data.car.color}
-                            </Typography>
+                            Số chỗ ngồi: {data.car.seatNumber}
                         </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Màu xe: {data.car.color}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Khách thuê xe: {data.customer.fullName}
+                        </Typography>    
+                        <Typography variant="body1" color="text.secondary">
+                            Địa chỉ:  {data.customer.address}
+                        </Typography> 
+                        <Typography variant="body1" color="text.secondary">
+                            Số điện thoại:  {data.customer.telephone}
+                        </Typography> 
                         <Typography variant="body1" color="red">
                             Tổng số tiền: {formatPrice(data.totalPrice)}
                         </Typography>
-                    
                     </CardContent>
                 </CardActionArea>
             </Card>
@@ -72,8 +77,8 @@ function BillDetail() {
 
     const [data, setData] = React.useState([]);
     const [fetched, setFetched] = React.useState(false);
-    const {search} = useLocation();
-    const {bill_id} = queryString.parse(search);
+
+    const bill_id = useParams().id;
     
     React.useEffect(() => {
         console.log(bill_id);

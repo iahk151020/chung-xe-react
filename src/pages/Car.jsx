@@ -35,7 +35,7 @@ export const CarList = () =>
 
     async function search() {
         console.warn(seat);
-        let result = await fetch('http://localhost:8080/api/v1/cars/search/?kw='+name+'&nbrSeat='+seat+'&branchId='+branch+'&carCategoryId='+cate);
+        let result = await fetch('http://localhost:8080/api/v1/cars/search/?kw='+name+'&nbrSeat='+seat+'&branchId='+branch+'&categoryId='+cate);
         result = await result.json();
         setData(result);
     }

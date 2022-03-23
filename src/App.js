@@ -33,42 +33,42 @@ function App() {
           <Route exact path="/admin/login"><AdminLogin/></Route>
           <Route exact path="/admin">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <AdminHome/>
             </div>
           </Route>
           <Route exact path="/admin/cars/statistic">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <CarStatistic/>
             </div>
           </Route>
           <Route exact path="/admin/cars/statistic/bills/:car_id?/:start_date?/:end_date?">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <BillByCar/>
             </div>
           </Route>
           <Route exact path="/admin/bills/bill_detail/:id">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <BillDetail/>
             </div>
           </Route>
           <Route exact path="/admin/bills/confirm">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <BillList/>
             </div>
           </Route>
           <Route exact path="/admin/bills/confirm/:id">
             <Topbar/>
-            <div className="container">
+            <div className="container1">
               <Sidebar/>
               <ConfirmBill/>
             </div>

@@ -9,6 +9,10 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import "react-datepicker/dist/react-datepicker.css";
 
+function formatPrice(price){
+    return price.toLocaleString('undefined', {style : 'currency', currency : 'VND'});
+}
+
 function CarDetail (props) {
     localStorage.removeItem('bill');
     const[data,setData] = useState([]);
@@ -83,7 +87,7 @@ function CarDetail (props) {
         <>
             <Heading/>
             <main className="flex-container">
-                <div className="main-content row">
+                <div className="main-content row" style={{height: "800px"}}>
                    
 
                         <div className="top-content">
@@ -145,16 +149,15 @@ function CarDetail (props) {
                     </div>
                     <div className="form-group">
                         <select className="form-control" onChange={(e)=>setPaymentMethod(e.target.value)}>
-                            <option value="0" selected hidden>Thanh toan</option>
-                            <option value="Cash">Cash</option>
-                            <option value="Online">Online</option>
+                            <option value="Cash">Tiền mặt</option>
+                            <option value="Online">Chuyển khoản</option>
                         </select>
                     </div>                    
                     <div className="rent-price">
                         <h2>Chi tiết giá</h2>
-                        <p>Đơn giá: {price} đ</p>
+                        <p>Đơn giá: {price} VND</p>
                         <p>Thời gian thuê : {day} ngày</p>
-                        <p>Tổng tiền: {totalPrice.toLocaleString()} đ </p>
+                        <p>Tổng tiền: {totalPrice.toLocaleString()} VND</p>
                     </div>
                     
                     <div className="button">

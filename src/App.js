@@ -27,8 +27,6 @@ import AdminHome from "./components/pages/AdminHome";
 function App() {
   return (
     <Router className="App">
-      
-      
         <Switch>
           <Route exact path="/admin/login"><AdminLogin/></Route>
           <Route exact path="/admin">

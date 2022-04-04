@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
 
 
 const columns = [
-    { id: 'stt', label: 'STT', minWidth: 170 },
+    { id: 'stt', label: 'STT', minWidth: 150 },
     { id: 'carName', label: 'Tên xe', minWidth: 170 },
     { id: 'carId', label: 'ID xe', minWidth: 170 },
     {

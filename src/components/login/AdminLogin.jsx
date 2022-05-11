@@ -53,8 +53,11 @@ function AdminLogin() {
             }
         })
         .then(res => {
+            console.log(res);
             if(res.status == 200){
                 history.push("/admin");
+            } else {
+                setOpen(true);
             }
         });
     };

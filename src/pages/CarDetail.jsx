@@ -36,7 +36,7 @@ function CarDetail (props) {
     let carId = props.match.params.id;
     let customerId = user.id;
 
-    if(day<0) 
+    if(eDate < sDate) 
     {
         day =0;
     } else {

@@ -105,7 +105,7 @@ function ConfirmBill() {
                 </div>
                 <div className="billInfo">
                     <Card sx={{ maxWidth: 600 }}>
-                        <CardActionArea>
+                        <div>
                             <CardMedia
                             component="img"
                             height="180"
@@ -151,7 +151,7 @@ function ConfirmBill() {
                                 </Typography>
                             
                             </CardContent>
-                        </CardActionArea>
+                        </div>
                     </Card>
                 </div>
                 <br/>

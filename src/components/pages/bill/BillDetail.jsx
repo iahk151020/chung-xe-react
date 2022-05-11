@@ -20,9 +20,9 @@ function formatPrice(price){
 
 function Body(data){
     return (
-        
+      
             <Card sx={{ maxWidth: 600 }}>
-                <CardActionArea>
+                <div>
                     <CardMedia
                     component="img"
                     height="180"
@@ -67,8 +67,9 @@ function Body(data){
                             Tổng số tiền: {formatPrice(data.totalPrice)}
                         </Typography>
                     </CardContent>
-                </CardActionArea>
+                </div>
             </Card>
+       
        
     )
 }

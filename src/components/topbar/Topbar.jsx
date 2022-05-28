@@ -24,7 +24,7 @@ function Topbar() {
     <div className='topbar'>
         <div className="topbarWrapper">
                 <div className="topLeft">
-                    <span className="logo">Chungxe admin</span>
+                    <span className="logo">Dashboard</span>
                 </div>
                 <div className="topRight">
                   <div className="topbarIconContainer">
@@ -34,7 +34,7 @@ function Topbar() {
                     <NotificationsNoneOutlinedIcon/>
                   </div>
                   <img 
-                    src="https://genmec.vn/wp-content/uploads/2020/11/bao-cao-su-don-den-gai-deo-ngon-tay.jpg" 
+                    src="https://www.pngarts.com/files/5/User-Avatar-PNG-Transparent-Image.png" 
                     alt="avatar" 
                     className="topAvatar" 
                     onClick={handleClick}  

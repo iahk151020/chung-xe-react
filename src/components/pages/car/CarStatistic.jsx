@@ -17,14 +17,15 @@ import {
     KeyboardDatePicker
 } from '@material-ui/pickers';
 import { Link } from 'react-router-dom';
+import { Input } from '@mui/material';
 
 
 const columns = [
     { id: 'stt', label: 'STT', minWidth: 170 },
     { id: 'carName', label: 'Tên xe', minWidth: 170 },
-    { id: 'carId', label: 'ID xe', minWidth: 170 },
+    { id: 'licensePlates', label: 'Biển số xe', minWidth: 170 },
     {
-      id: 'doanhThu',
+      id: 'revenue',
       label: 'Doanh thu',
       minWidth: 170
     },
@@ -46,6 +47,8 @@ function CarStatistic() {
     let [selectedEndDate, setSelectedEndDate] = React.useState(new Date());
     const [search, setSearch] = React.useState(false);
     const [rows, setRows] = React.useState([]);
+    const ariaLabel = { 'aria-label': 'description' };
+
   
     React.useEffect(async () => {
         if (search){
@@ -113,7 +116,7 @@ function CarStatistic() {
                                 format='yyyy-MM-dd'
                                 margin='normal'
                                 id='startDatePicker'
-                                label='Start Date'
+                                label='Ngày bắt đầu'
                                 value={selectedStartDate}
                                 onChange={handleStartDateChange}
                                 KeyboardButtonProps={{
@@ -132,7 +135,7 @@ function CarStatistic() {
                                 format='yyyy-MM-dd'
                                 margin='normal'
                                 id='endDatePicker'
-                                label='End Date'
+                                label='Ngày kết thúc'
                                 value={selectedEndDate}
                                 onChange={handleEndDateChange}
                                 KeyboardButtonProps={{
@@ -143,9 +146,10 @@ function CarStatistic() {
                     </MuiPickersUtilsProvider>
                 </div>
                 <div className="btnSearch">
-                    <Button onClick={handleSearching}>Search</Button>
+                    <Button onClick={handleSearching}>Tìm kiếm</Button>
                 </div>
             </div>
+      
             <div className="table">
                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <TableContainer sx={{ maxHeight: 600 }}>

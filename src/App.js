@@ -1,6 +1,6 @@
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
-import Home from './components/pages/Home';
+import Home from './components/pages/home/Home';
 import CarStatistic from './components/pages/car/CarStatistic';
 import BillByCar from "./components/pages/bill/BillByCar";
 import BillDetail from "./components/pages/bill/BillDetail";
@@ -14,6 +14,9 @@ import {
   Link
 } from "react-router-dom";
 import ConfirmBill from "./components/pages/bill/ConfirmBill";
+import CustomerList from "./components/pages/customer/CustomerList";
+import CustomerDetail from "./components/pages/customer/CustomerDetail";
+import RentingHistory from "./components/pages/car/RentingHistory";
 
 function App() {
   return (
@@ -34,32 +37,30 @@ function App() {
               <CarStatistic/>
             </div>
           </Route>
-          <Route exact path="/admin/cars/statistic/bills/:car_id?/:start_date?/:end_date?">
+
+          <Route exact path="/admin/cars/renting-history">
             <Topbar/>
             <div className="container">
               <Sidebar/>
-              <BillByCar/>
+              <RentingHistory/>
             </div>
           </Route>
-          <Route exact path="/admin/bills/bill_detail/:id">
+     
+          
+
+          <Route exact path="/admin/customers/customer-list">
             <Topbar/>
             <div className="container">
               <Sidebar/>
-              <BillDetail/>
+              <CustomerList/>
             </div>
           </Route>
-          <Route exact path="/admin/bills/confirm">
+
+          <Route exact path="/admin/customers/customer-detail/:customer_name?">
             <Topbar/>
             <div className="container">
               <Sidebar/>
-              <BillList/>
-            </div>
-          </Route>
-          <Route exact path="/admin/bills/confirm/:id">
-            <Topbar/>
-            <div className="container">
-              <Sidebar/>
-              <ConfirmBill/>
+              <CustomerDetail/>
             </div>
           </Route>
           

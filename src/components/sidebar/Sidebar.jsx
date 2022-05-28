@@ -38,48 +38,28 @@ function Sidebar() {
           <h3 className="sidebarTitle">Xe</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem" onClick={enableActive}>
-              <InventoryIcon className='sidebarIcon'/>
-              Quản lý xe
-            </li>
-            <li className="sidebarListItem" onClick={enableActive}>
               <DirectionsCarIcon className='sidebarIcon'/>
-              Danh sách xe
+              <Link onClick={enableActive} to='/admin/cars/renting-history'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Lịch sử thuê xe</Link> 
             </li>
+
             <li className="sidebarListItem" onClick={enableActive}>
               <EqualizerIcon className='sidebarIcon'/>
-              <Link onClick={enableActive} to='/admin/cars/statistic'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Thống kê xe </Link> 
+              <Link onClick={enableActive} to='/admin/cars/statistic'  style={{  color: 'inherit', textDecoration: 'inherit' }}>Doanh thu </Link> 
             </li>
           </ul>
         </div>
 
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">User</h3>
+          <h3 className="sidebarTitle">Khách hàng</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem" onClick={enableActive}>
               <PersonIcon className='sidebarIcon'/>
-              Danh sách user
+              <Link onClick={enableActive} to='/admin/customers/customer-list'  style={{  color: 'inherit', textDecoration: 'inherit' }}> Danh sách khách hàng </Link>
             </li>
-            <li className="sidebarListItem" onClick={enableActive}>
-              <ManageAccountsIcon className='sidebarIcon'/>
-              Quản lý user
-            </li>
-          </ul>
-        </div>
 
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Hóa đơn</h3>
-          <ul className="sidebarList">
             <li className="sidebarListItem" onClick={enableActive}>
-              <HourglassTopIcon className='sidebarIcon'/>
-              <Link onClick={enableActive} to='/admin/bills/confirm'  style={{  color: 'inherit', textDecoration: 'inherit' }}> Chờ duyệt </Link> 
-            </li>
-            <li className="sidebarListItem" onClick={enableActive}>
-              <AddBoxIcon className='sidebarIcon'/>
-              Quản lý hóa đơn
-            </li>
-            <li className="sidebarListItem" onClick={enableActive}>
-              <DescriptionIcon className='sidebarIcon'/>
-              Thống kê hóa đơn
+              <PersonIcon className='sidebarIcon'/>
+              <Link onClick={enableActive} to='/admin/customer-list'  style={{  color: 'inherit', textDecoration: 'inherit' }}> Thống kê lượt thuê xe </Link>
             </li>
           </ul>
         </div>

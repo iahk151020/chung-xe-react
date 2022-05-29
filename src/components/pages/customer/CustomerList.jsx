@@ -16,7 +16,8 @@ const columns = [
   { id: 'customerName', label: 'Tên khách hàng', minWidth: 170 },
   { id: 'phoneNumber', label: 'Số điện thoại', minWidth: 170 },
   {id: 'address', label: 'Địa chỉ', minWidth: 170},
-  { id: 'action', label: 'Action', minWidth: 170 }
+  { id: 'detail', label: 'Xem chi tiết thông tin', minWidth: 170 },
+  { id: 'rentingTurn', label: 'Các lượt thuê xe', minWidth: 170 }
 ];
 
 function createData(stt, customerName, phoneNumber, address) {
@@ -82,12 +83,16 @@ function CustomerList() {
                                 
                                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                                   {columns.map((column) => {
-                                      if (column.id == 'action'){
+                                      if (column.id == 'detail'){
                                           return (
                                               <TableCell>
-                                                  {<Link to={`customer-detail/?customer_name=${row.customerName}`}>Chi tiết</Link>}
+                                                  {<Link to={`customer-detail/?customer_name=${row.customerName}`}>Xem</Link>}
                                               </TableCell>
                                           )
+                                      } else if(column.id == 'rentingTurn'){
+                                         return (<TableCell>
+                                            {<Link to={`renting-turns/?customer_name=${row.customerName}`}>Xem</Link>}
+                                        </TableCell>);
                                       } else {
                                           const value = row[column.id];
                                           return (    

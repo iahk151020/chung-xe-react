@@ -17,6 +17,7 @@ import ConfirmBill from "./components/pages/bill/ConfirmBill";
 import CustomerList from "./components/pages/customer/CustomerList";
 import CustomerDetail from "./components/pages/customer/CustomerDetail";
 import RentingHistory from "./components/pages/car/RentingHistory";
+import RentingTurns from "./components/pages/customer/RentingTurns";
 
 function App() {
   return (
@@ -61,6 +62,14 @@ function App() {
             <div className="container">
               <Sidebar/>
               <CustomerDetail/>
+            </div>
+          </Route>
+
+          <Route exact path="/admin/customers/renting-turns/:customer_name?">
+            <Topbar/>
+            <div className="container">
+              <Sidebar/>
+              <RentingTurns/>
             </div>
           </Route>
           

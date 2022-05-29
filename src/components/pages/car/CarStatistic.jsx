@@ -29,11 +29,10 @@ const columns = [
       label: 'Doanh thu',
       minWidth: 170
     },
-    { id: 'action', label: 'Action', minWidth: 170 }
   ];
   
-  function createData(stt, carName, carId, doanhThu) {
-    return {stt, carName, carId, doanhThu};
+  function createData(stt, carName, licensePlates, revenue) {
+    return {stt, carName, licensePlates, revenue};
   }
   
  
@@ -54,7 +53,7 @@ function CarStatistic() {
         if (search){
             let startDate = formatStartDate();
             let endDate = formatEndDate();
-            fetch(`http://localhost:8080/api/v1/cars/statistic?startDate=${startDate}&endDate=${endDate}`, {
+            fetch(`http://localhost:8080/api/v1/cars/revenue-statistic?startDate=${startDate}&endDate=${endDate}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,7 +61,8 @@ function CarStatistic() {
             })
             .then(res => res.json())
             .then(resJson => {
-                let newData = resJson.map((item, id) => createData(id + 1, item.carName, item.carId, item.doanhthu));
+                console.log(resJson);
+                let newData = resJson.map((item, id) => createData(id + 1, item.carName, item.licensePlates, item.revenue));
                 setRows(newData);
             });
             setSearch(false);
@@ -106,6 +106,9 @@ function CarStatistic() {
         
     return (
         <div className='carStatistic'>
+
+            <div className="title">Thống kê doanh thu thuê xe</div>
+
             <div className="datePicker">
                 <div className="startDatePicker">
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -175,13 +178,7 @@ function CarStatistic() {
                                 
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                                         {columns.map((column) => {
-                                            if (column.id == 'action'){
-                                                return (
-                                                    <TableCell>
-                                                        {<Link to={`statistic/bills/car_id=${row.carId}&start_date=${formatStartDate()}&end_date=${formatEndDate()}`}>Xem danh sách hóa đơn</Link>}
-                                                    </TableCell>
-                                                )
-                                            } else {
+                                            
                                                 const value = row[column.id];
                                                 return (    
                                                         <TableCell key={column.id} align={column.align}>
@@ -190,7 +187,7 @@ function CarStatistic() {
                                                             : value}
                                                         </TableCell>                                      
                                                 );
-                                            }
+                                            
                                         })}
                                     </TableRow>
                                 

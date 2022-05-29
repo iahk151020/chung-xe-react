@@ -7,30 +7,27 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import DateFnsUtils  from '@date-io/date-fns';
-import './RentingHistory.css';
+import './RentingTurns.css';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { Button, Grid } from '@mui/material';
 
 const columns = [
     { id: 'stt', label: 'STT', minWidth: 80 },
-    { id: 'billId', label: 'Mã hóa đơn', minWidth: 100 },
-    { id: 'customerName', label: 'Khách hàng', minWidth: 100 },
     { id: 'carName', label: 'Tên xe', minWidth: 100 },
     { id: 'licensePlates', label: 'Biển số xe', minWidth: 100 },
     { id: 'startDate', label: 'Ngày bắt đầu thuê', minWidth: 100 },
     { id: 'endDate', label: 'Ngày kết thúc thuê', minWidth: 100 },
-    { id: 'totalPrice', label: 'Tổng giá thuê', minWidth: 100 },
-    { id: 'action', label: 'Action', minWidth: 100 }
+    { id: 'totalPrice', label: 'Phí thuê', minWidth: 100 },
   ];
   
-function createData(stt, billId, customerName, carName, licensePlates, startDate, endDate, totalPrice) {
-    return { stt, billId, customerName, carName, licensePlates, startDate, endDate, totalPrice };
+function createData(stt,  carName, licensePlates, startDate, endDate, totalPrice) {
+    return { stt,  carName, licensePlates, startDate, endDate, totalPrice };
 }
 
 
-function  RentingHistory() {
+function  RentingTurns() {
 
     let [page, setPage] = React.useState(0);
     let [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -38,7 +35,8 @@ function  RentingHistory() {
     let [selectedEndDate, setSelectedEndDate] = React.useState(new Date());
     const [search, setSearch] = React.useState(false);
     const [rows, setRows] = React.useState([]);
-    
+    const customer_name = useLocation().search.split('=')[1];
+
     const formatStartDate = () => {
         const startDate = selectedStartDate.getDate() < 10 ? '0' + selectedStartDate.getDate() : selectedStartDate.getDate();
         const startYear = selectedStartDate.getFullYear();
@@ -78,7 +76,7 @@ function  RentingHistory() {
    
     React.useEffect(async(key) => {
         console.log(1);
-        fetch(`http://localhost:8080/api/v1/booking-car/list-by-date?startDate=${formatStartDate()}&endDate=${formatEndDate()}`, {
+        fetch(`http://localhost:8080/api/v1/customers/renting-turns?customer_name=${customer_name}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,58 +84,16 @@ function  RentingHistory() {
         })
         .then(res => res.json())
         .then(data => {
-            setRows(data.map((item, index) => createData(index + 1, item.bookingId, item.customerName, item.carName, item.licensePlates, item.startDate, item.endDate, item.totalPrice)));
+            console.log(data);
+            setRows(data.map((item, index) => createData(index + 1, item.carName, item.licensePlates, item.startDate, item.endDate, item.totalPrice)));
         });
         setSearch(false)
-    }, [search]);
+    }, []);
 
   return (    
-    <div className="rentingHistory">
-        <div className="title">Lịch sử thuê xe</div>
+    <div className="renting-turns">
 
-        <div className="datePicker">
-                <div className="startDatePicker">
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Grid container justify='space-around'>
-                            <KeyboardDatePicker
-                                disableToolbar
-                                variant='inline'
-                                format='yyyy-MM-dd'
-                                margin='normal'
-                                id='startDatePicker'
-                                label='Ngày bắt đầu'
-                                value={selectedStartDate}
-                                onChange={handleStartDateChange}
-                                KeyboardButtonProps={{
-                                    'arial-label': 'change date',
-                                }}
-                            />  
-                        </Grid>
-                    </MuiPickersUtilsProvider>
-                </div>
-                <div className="endDatePicker">
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Grid container justify='space-around'>
-                            <KeyboardDatePicker
-                                disableToolbar
-                                variant='inline'
-                                format='yyyy-MM-dd'
-                                margin='normal'
-                                id='endDatePicker'
-                                label='Ngày kết thúc'
-                                value={selectedEndDate}
-                                onChange={handleEndDateChange}
-                                KeyboardButtonProps={{
-                                    'arial-label': 'change date',
-                                }}
-                            />  
-                        </Grid>
-                    </MuiPickersUtilsProvider>
-                </div>
-                <div className="btnSearch">
-                    <Button onClick={handleSearching}>Tìm kiếm</Button>
-                </div>
-            </div>
+        <div className="title">Lịch sử thuê xe của {customer_name}</div>
 
         <div className="rentingHistoryContent">
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -203,4 +159,4 @@ function  RentingHistory() {
   )
 }
 
-export default  RentingHistory;
+export default  RentingTurns;

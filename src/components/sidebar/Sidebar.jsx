@@ -57,10 +57,6 @@ function Sidebar() {
               <Link onClick={enableActive} to='/admin/customers/customer-list'  style={{  color: 'inherit', textDecoration: 'inherit' }}> Danh sách khách hàng </Link>
             </li>
 
-            <li className="sidebarListItem" onClick={enableActive}>
-              <PersonIcon className='sidebarIcon'/>
-              <Link onClick={enableActive} to='/admin/customer-list'  style={{  color: 'inherit', textDecoration: 'inherit' }}> Thống kê lượt thuê xe </Link>
-            </li>
           </ul>
         </div>
 
